@@ -1,32 +1,46 @@
-//Задача 2. Дано Shop  -- клас, що містить список товарів (масив об’єктів класу Product
-// (назва, ціна, кількість одиниць). Додати можливість ітератора до класу Shop, щоб при
-//  ітеруванні для кожного елемента виводився рядок «товар-загальна вартість»
-const Student = {
-  name: "Alina",
-  group: "TS-23",
-  marks: [4, 3, 3, 5],
-
-  [Symbol.iterator]() {
-    let index = 0;
-    let marks = this.marks;
-
-    return {
-      next() {
-        if (index < marks.length) {
-          return {
-            value: marks[index++],
-            done: false,
-          };
-        }
-
-        return {
-          done: true,
-        };
-      },
-    };
-  },
-};
-
-for (const mark of Student) {
-  console.log(mark);
+"use strict";
+class Product {
+    name;
+    price;
+    quantity;
+    constructor(name, price, quantity) {
+        this.name = name;
+        this.price = price;
+        this.quantity = quantity;
+    }
 }
+class Shop {
+    products;
+    constructor(products) {
+        this.products = products;
+    }
+    [Symbol.iterator]() {
+        let index = 0;
+        const products = this.products;
+        return {
+            next() {
+                if (index < products.length) {
+                    const product = products[index++];
+                    return {
+                        value: `${product.name} - ${product.price * product.quantity} грн`,
+                        done: false,
+                    };
+                }
+                return {
+                    value: undefined,
+                    done: true,
+                };
+            },
+        };
+    }
+}
+// використання
+const shop = new Shop([
+    new Product("Молоко", 50, 10),
+    new Product("Хліб", 20, 5),
+    new Product("Сік", 30, 3),
+]);
+for (const item of shop) {
+    console.log(item);
+}
+//# sourceMappingURL=task-2.js.map

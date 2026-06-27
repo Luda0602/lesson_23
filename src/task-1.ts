@@ -5,8 +5,8 @@ class PhoneNumber {
     this.number = number;
   }
 
-  [Symbol.toPrimitive](type: string): string {
-    if (type === "string") {
+  [Symbol.toPrimitive](hint: string): string {
+    if (hint === "string") {
       if (this.number.startsWith("050")) return "MTC";
       if (this.number.startsWith("096")) return "Kyivstar";
 
